@@ -77,16 +77,15 @@ def fidelity_score(y_pred_model: np.ndarray,
 
 A validation table was constructed to track progress from baseline to post-intervention across pre-processing, in-processing, and post-processing explainability methods.  
 While the numbers below are illustrative, they demonstrate how the framework produces structured and verifiable outcomes.
-
-| Metric                     | Baseline | After Pre | After In | After Post | Target         | Status   |
-|-----------------------------|----------|-----------|----------|------------|----------------|----------|
-| Fidelity (corr/R²)          | 0.52     | 0.68      | 0.79     | 0.87       | ≥ 0.85         | ✅ Pass  |
-| Stability (cosine sim.)     | 0.40     | 0.58      | 0.74     | 0.82       | ≥ 0.80         | ✅ Pass  |
-| Comprehensibility (#feats)  | 8.0      | 6.3       | 5.2      | 4.1        | ≤ 5            | ✅ Pass  |
-| Coverage (%)                | 40%      | 75%       | 90%      | 98%        | ≥ 95%          | ✅ Pass  |
-| Simulatability (human acc.) | 42%      | 55%       | 65%      | 73%        | ≥ 70%          | ✅ Pass  |
-| Trust gap (conf − acc)      | +0.22    | +0.16     | +0.11    | +0.07      | \|gap\| ≤ 0.10 | ⚠️ Near  |
-| Completeness check          | No       | Partial   | Partial  | Full       | Full compliance| ✅ Pass  |
+| Métrica                   | Baseline (sin explicaciones) | Después (con técnicas) | Target   | Estado |
+|----------------------------|-------------------------------|-------------------------|----------|--------|
+| Fidelidad (R²)             | N/A                           | 0.96                    | ≥ 0.85   | ✅      |
+| Estabilidad (cosine sim)   | N/A                           | 0.82                    | ≥ 0.80   | ✅      |
+| Comprehensibilidad (#feats)| N/A                           | 4                       | ≤ 5      | ✅      |
+| Cobertura (%)              | 0%                            | 98%                     | ≥ 95%    | ✅      |
+| Simulabilidad (%)          | 42%                           | 73%                     | ≥ 70%    | ✅      |
+| Trust gap (conf-acc)       | N/A                           | +0.07                   | ≤ 0.10   | ⚠️      |
+| Cumplimiento regulatorio   | No                            | Sí                      | Full     | ✅      |
 
 ### Necesidades de investigación
 - Requiere **datasets longitudinales y multicéntricos** para validar generalización.  
