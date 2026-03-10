@@ -1,0 +1,165 @@
+{
+  "artefact_type": "evidence_snippet",
+  "design_science_framework": "Hevner et al. (2004)",
+  "evaluation_criteria": [
+    "utility",
+    "discriminative_capacity",
+    "reproducibility"
+  ],
+  "snippet": {
+    "case_id": "2025-09-14-ICU-001",
+    "timestamp": "2025-09-14T14:32:09Z",
+    "model_version": "ESM-v3.2.1-site-MCH",
+    "site_id": "MCH-ICU-3",
+    "output_value": 0.82,
+    "threshold": 0.6,
+    "margin": 0.22,
+    "census_norm_rate": 0.142,
+    "concept_group_attribution": {
+      "Lactate": 0.32,
+      "HR_variability": 0.28,
+      "WBC_trend": 0.18,
+      "Admin_proxy": 0.12,
+      "Other_clinical": 0.1
+    },
+    "clinical_domain_fraction": 0.78,
+    "tcav_sepsis_activation": 0.81,
+    "attribution_stability_delta": 0.04,
+    "prototype_distance": 0.12,
+    "nearest_prototype_id": "PROTO-ICU-2019-0447",
+    "influence_concentration": {
+      "region_1": {
+        "cohort": "validated_ICU",
+        "weight": 0.34
+      },
+      "region_2": {
+        "cohort": "validated_ICU",
+        "weight": 0.22
+      },
+      "region_3": {
+        "cohort": "validated_ICU",
+        "weight": 0.18
+      },
+      "region_4": {
+        "cohort": "validated_ICU",
+        "weight": 0.14
+      },
+      "region_5": {
+        "cohort": "validated_ICU",
+        "weight": 0.08
+      }
+    },
+    "validated_cohort_match": true,
+    "coverage_trend": 0.002,
+    "counterfactual_distance": 2,
+    "counterfactual_features": [
+      {
+        "feature": "HR",
+        "delta": "+4 bpm"
+      },
+      {
+        "feature": "Lactate",
+        "delta": "-0.3 mmol/L"
+      }
+    ],
+    "anchor_rule": "IF Lactate > 2.8 AND HR_var > 0.6 THEN alert",
+    "anchor_precision": 0.89,
+    "flip_rate": 0.18,
+    "perturbation_type": "bounded_clinical_noise_\u00b11SD_5pct_binary_flip",
+    "faithfulness_score": 0.91,
+    "monotonicity_check": "PASS",
+    "reproducibility_check": "PASS",
+    "rc1_status": "OK",
+    "rc2_status": "OK",
+    "rc3_status": "CONTESTABLE",
+    "rc4_status": "COMPLETE",
+    "reliance_decision": "PROCEED_WITH_FLAG",
+    "operator_rationale": "REQUIRED: clinical rationale must be documented"
+  },
+  "thresholds": {
+    "clinical_domain_fraction_ok": 0.6,
+    "clinical_domain_fraction_blocked": 0.4,
+    "tcav_activation_threshold": 0.6,
+    "attribution_stability_ceiling": 0.1,
+    "prototype_distance_envelope": 0.3,
+    "coverage_trend_sd_threshold": 2.0,
+    "min_margin_to_threshold": 0.1,
+    "flip_rate_warning": 0.15,
+    "flip_rate_blocked": 0.3,
+    "anchor_precision_minimum": 0.8,
+    "faithfulness_minimum": 0.8,
+    "census_norm_alert_ceiling": 0.18
+  },
+  "xai_methods": [
+    {
+      "name": "SHAP (KernelSHAP)",
+      "rule_id": "R1.1",
+      "rc_served": "RC1",
+      "blackbox_compat": "full_input_output",
+      "fallback": "LIME"
+    },
+    {
+      "name": "TCAV / ConceptSHAP",
+      "rule_id": "R1.2",
+      "rc_served": "RC1",
+      "blackbox_compat": "requires_intermediate",
+      "fallback": null
+    },
+    {
+      "name": "SHAP stability (perturbation)",
+      "rule_id": "R1.A",
+      "rc_served": "RC1 (admissibility gate)",
+      "blackbox_compat": "full_input_output",
+      "fallback": null
+    },
+    {
+      "name": "ProtoDash / MMD-critic",
+      "rule_id": "R2.1",
+      "rc_served": "RC2",
+      "blackbox_compat": "full_input_output",
+      "fallback": "k-NN distance in feature space"
+    },
+    {
+      "name": "Influence Functions",
+      "rule_id": "R2.2",
+      "rc_served": "RC2",
+      "blackbox_compat": "requires_internals",
+      "fallback": null
+    },
+    {
+      "name": "DiCE / Wachter counterfactuals",
+      "rule_id": "R3.1",
+      "rc_served": "RC3",
+      "blackbox_compat": "full_input_output",
+      "fallback": null
+    },
+    {
+      "name": "Anchors",
+      "rule_id": "R3.2",
+      "rc_served": "RC3",
+      "blackbox_compat": "full_input_output",
+      "fallback": null
+    },
+    {
+      "name": "SHAP perturbation flip-rate",
+      "rule_id": "R3.3",
+      "rc_served": "RC3",
+      "blackbox_compat": "full_input_output",
+      "fallback": null
+    },
+    {
+      "name": "XAI artefact logging",
+      "rule_id": "R4.1",
+      "rc_served": "RC4",
+      "blackbox_compat": "full_input_output",
+      "fallback": null
+    },
+    {
+      "name": "Faithfulness / Monotonicity checks",
+      "rule_id": "R4.2",
+      "rc_served": "RC4 (integrity gate)",
+      "blackbox_compat": "full_input_output",
+      "fallback": null
+    }
+  ]
+}
